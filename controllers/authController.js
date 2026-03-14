@@ -52,7 +52,27 @@ async function userLogin(req, res) {
     });
   }
   try {
-
+    const user = await userModel.findOne({ email });
+    if (!user) {
+      return res.status(400).json({ message: "User not found" });
+    }
+    const checkedPassword = await bcrypt.compare(password, user.password);
+    if (!checkedPassword) {
+      return res.status(400).json({
+        message: "Invalid email or password",
+      });
+    }
+    const token = await jwt.sign({ id: user._id }, process.env.JWT_SECRET, {
+      expiresIn: "7d",
+    });
+    return res.status(200).json({
+      message: "Logged in successfully",
+      user: {
+        name: user.name,
+        email: user.email,
+        token,
+      },
+    });
   } catch (error) {
     console.error(error);
     return res
