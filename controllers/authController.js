@@ -70,8 +70,8 @@ async function userLogin(req, res) {
       user: {
         name: user.name,
         email: user.email,
-        token,
       },
+      token,
     });
   } catch (error) {
     console.error(error);
