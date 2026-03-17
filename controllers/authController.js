@@ -67,11 +67,12 @@ async function userLogin(req, res) {
     });
     return res.status(200).json({
       message: "Logged in successfully",
+      token,
       user: {
         name: user.name,
         email: user.email,
+        role: user.role,
       },
-      token,
     });
   } catch (error) {
     console.error(error);
