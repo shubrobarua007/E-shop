@@ -23,9 +23,13 @@ async function userRegisterController(req, res) {
       email: email,
       password: hash,
     });
-    const token = await jwt.sign({ id: user._id }, process.env.JWT_SECRET, {
-      expiresIn: "7d",
-    });
+    const token = await jwt.sign(
+      { id: user._id, role: user.role },
+      process.env.JWT_SECRET,
+      {
+        expiresIn: "7d",
+      }
+    );
     return res.status(201).json({
       message: "User registered successfully",
       user: {
@@ -62,9 +66,14 @@ async function userLogin(req, res) {
         message: "Invalid email or password",
       });
     }
-    const token = await jwt.sign({ id: user._id }, process.env.JWT_SECRET, {
-      expiresIn: "7d",
-    });
+    const token = await jwt.sign(
+      { id: user._id, role: user.role },
+
+      process.env.JWT_SECRET,
+      {
+        expiresIn: "7d",
+      }
+    );
     return res.status(200).json({
       message: "Logged in successfully",
       token,
