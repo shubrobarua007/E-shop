@@ -6,8 +6,7 @@ A complete REST API for an e-commerce platform built with Node.js, Express.js an
 
 ## Live Demo
 
-> Deploy on Render and paste your URL here
-> Example: `https://shopeasy-backend.onrender.com`
+https://e-shop-backend-ejha.onrender.com
 
 ---
 
@@ -73,52 +72,56 @@ shopeasy-backend/
 
 ### Auth — `/api/auth`
 
-| Method | Endpoint | Description | Auth Required |
-|--------|----------|-------------|---------------|
-| POST | `/register` | Register new user | No |
-| POST | `/login` | Login and get JWT token | No |
-| GET | `/profile` | Get logged in user profile | Yes |
+| Method | Endpoint    | Description                | Auth Required |
+| ------ | ----------- | -------------------------- | ------------- |
+| POST   | `/register` | Register new user          | No            |
+| POST   | `/login`    | Login and get JWT token    | No            |
+| GET    | `/profile`  | Get logged in user profile | Yes           |
 
 ### Products — `/api/product`
 
-| Method | Endpoint | Description | Auth Required |
-|--------|----------|-------------|---------------|
-| GET | `/allProducts` | Get all products | No |
-| GET | `/:id` | Get single product by ID | No |
-| POST | `/createProduct` | Create new product | Admin only |
-| PUT | `/updateProduct/:id` | Update product | Admin only |
-| DELETE | `/deleteProduct/:id` | Delete product | Admin only |
+| Method | Endpoint             | Description              | Auth Required |
+| ------ | -------------------- | ------------------------ | ------------- |
+| GET    | `/allProducts`       | Get all products         | No            |
+| GET    | `/:id`               | Get single product by ID | No            |
+| POST   | `/createProduct`     | Create new product       | Admin only    |
+| PUT    | `/updateProduct/:id` | Update product           | Admin only    |
+| DELETE | `/deleteProduct/:id` | Delete product           | Admin only    |
 
 ### Orders — `/api/order`
 
-| Method | Endpoint | Description | Auth Required |
-|--------|----------|-------------|---------------|
-| POST | `/placeOrder` | Place a new order | User |
-| GET | `/myOrder` | Get logged in user's orders | User |
-| GET | `/allOrders` | Get all orders | Admin only |
+| Method | Endpoint      | Description                 | Auth Required |
+| ------ | ------------- | --------------------------- | ------------- |
+| POST   | `/placeOrder` | Place a new order           | User          |
+| GET    | `/myOrder`    | Get logged in user's orders | User          |
+| GET    | `/allOrders`  | Get all orders              | Admin only    |
 
 ---
 
 ## ⚙️ Getting Started
 
 ### Prerequisites
+
 - Node.js v16+
 - MongoDB Atlas account (free)
 
 ### Installation
 
 **1. Clone the repository**
+
 ```bash
 git clone https://github.com/shubrobarua007/E-shop.git
 cd E-shop
 ```
 
 **2. Install dependencies**
+
 ```bash
 npm install
 ```
 
 **3. Create `.env` file in the root folder**
+
 ```
 PORT=5000
 MONGO_URI=your_mongodb_atlas_connection_string
@@ -126,6 +129,7 @@ JWT_SECRET=your_secret_key_here
 ```
 
 **4. Start the server**
+
 ```bash
 # Development
 npm run dev
@@ -143,6 +147,7 @@ Server runs on `http://localhost:5000`
 Use [Postman](https://postman.com) to test endpoints.
 
 ### Register a user
+
 ```
 POST /api/auth/register
 Content-Type: application/json
@@ -155,6 +160,7 @@ Content-Type: application/json
 ```
 
 ### Login
+
 ```
 POST /api/auth/login
 Content-Type: application/json
@@ -166,6 +172,7 @@ Content-Type: application/json
 ```
 
 ### Place an order (requires JWT token)
+
 ```
 POST /api/order/placeOrder
 Authorization: Bearer your_jwt_token
@@ -183,10 +190,10 @@ Content-Type: application/json
 
 ## 🔐 Environment Variables
 
-| Variable | Description |
-|----------|-------------|
-| `PORT` | Port number (default: 5000) |
-| `MONGO_URI` | MongoDB Atlas connection string |
+| Variable     | Description                      |
+| ------------ | -------------------------------- |
+| `PORT`       | Port number (default: 5000)      |
+| `MONGO_URI`  | MongoDB Atlas connection string  |
 | `JWT_SECRET` | Secret key for JWT token signing |
 
 ---
@@ -194,6 +201,7 @@ Content-Type: application/json
 ## 👤 Author
 
 **Shubrobarua**
+
 - GitHub: [@shubrobarua007](https://github.com/shubrobarua007)
 
 ---
