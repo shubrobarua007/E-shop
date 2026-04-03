@@ -29,15 +29,28 @@ async function createProduct(req, res) {
 }
 async function getAllProducts(req, res) {
   try {
-    const products = await productModel.find();
+    const page = parseInt(req.query.page) || 1;
+    const limit = parseInt(req.query.limit) || 10;
+    const skip = (page - 1) * limit;
+    const products = await productModel.find().skip(skip).limit(limit);
     if (products.length === 0) {
       return res.status(404).json({
         message: "No products available",
       });
     }
+    const totalProducts = await productModel.countDocuments();
+    const totalPages = Math.ceil(totalProducts / limit);
     return res.status(200).json({
       message: "Products fetched successfully",
       products,
+      pagination: {
+        currentPage: page,
+        totalPages,
+        totalProducts,
+        limit,
+        hasNextPage: page < totalPages,
+        hasPrevPage: page > 1,
+      },
     });
   } catch (error) {
     return res.status(500).json({
