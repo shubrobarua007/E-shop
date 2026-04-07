@@ -32,13 +32,26 @@ async function getAllProducts(req, res) {
     const page = parseInt(req.query.page) || 1;
     const limit = parseInt(req.query.limit) || 10;
     const skip = (page - 1) * limit;
-    const products = await productModel.find().skip(skip).limit(limit);
+    const { search, category, minPrice, maxPrice } = req.query;
+    const filter = {};
+    if (search) {
+      filter.name = { $regex: search, $options: "i" };
+    }
+    if (category) {
+      filter.category = category;
+    }
+    if (minPrice || maxPrice) {
+      filter.price = {};
+      if (minPrice) filter.price.$gte = Number(minPrice);
+      if (maxPrice) filter.price.$lte = Number(maxPrice);
+    }
+    const products = await productModel.find(filter).skip(skip).limit(limit);
     if (products.length === 0) {
       return res.status(404).json({
         message: "No products available",
       });
     }
-    const totalProducts = await productModel.countDocuments();
+    const totalProducts = await productModel.countDocuments(filter);
     const totalPages = Math.ceil(totalProducts / limit);
     return res.status(200).json({
       message: "Products fetched successfully",
